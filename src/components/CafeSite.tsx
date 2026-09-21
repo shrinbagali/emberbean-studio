@@ -121,6 +121,7 @@ export function CafeSite() {
   const [reserveError, setReserveError] = useState("");
 
   const currentMenu = useMemo(() => fullMenu[category], [category]);
+  const lightboxImage = gallery[lightboxIndex];
 
   useEffect(() => {
     const sections = navItems.map(([id]) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
