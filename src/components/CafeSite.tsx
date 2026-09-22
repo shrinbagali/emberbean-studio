@@ -27,6 +27,12 @@ import menuImage from "@/assets/ember-menu.jpg";
 import eveningImage from "@/assets/ember-evening.jpg";
 import beansImage from "@/assets/ember-beans.jpg";
 import pastriesImage from "@/assets/ember-pastries.jpg";
+import cappuccinoImage from "@/assets/menu-cappuccino.jpg";
+import spanishLatteImage from "@/assets/menu-spanish-latte.jpg";
+import coldBrewImage from "@/assets/menu-cold-brew.jpg";
+import croissantImage from "@/assets/menu-croissant.jpg";
+import pestoPastaImage from "@/assets/menu-pesto-pasta.jpg";
+import berryCheesecakeImage from "@/assets/menu-berry-cheesecake.jpg";
 
 type Modal = "menu" | "gallery" | "reserve" | null;
 type MenuCategory = "Coffee" | "Non-Coffee" | "All-Day Bites" | "Pasta & Mains" | "Desserts";
@@ -40,15 +46,15 @@ const navItems = [
 ] as const;
 
 const signatureItems = [
-  { name: "Cappuccino", price: "₹160", detail: "Rich espresso, silky steamed milk and delicate latte art.", pos: "16% 68%" },
-  { name: "Spanish Latte", price: "₹190", detail: "Bold espresso softened with creamy condensed milk.", pos: "9% 21%" },
-  { name: "Cold Brew", price: "₹180", detail: "Slow-steeped for a smooth, naturally sweet finish.", pos: "31% 17%" },
-  { name: "Butter Croissant", price: "₹140", detail: "Flaky, golden and freshly baked.", pos: "50% 43%" },
-  { name: "Creamy Pesto Pasta", price: "₹280", detail: "Al dente pasta tossed in creamy basil pesto.", pos: "84% 32%" },
-  { name: "Berry Cheesecake", price: "₹220", detail: "Silky cheesecake finished with seasonal berries.", pos: "72% 72%" },
+  { name: "Cappuccino", price: "₹160", detail: "Rich espresso, silky steamed milk and delicate latte art.", image: cappuccinoImage, pos: "center" },
+  { name: "Spanish Latte", price: "₹190", detail: "Bold espresso softened with creamy condensed milk.", image: spanishLatteImage, pos: "center" },
+  { name: "Cold Brew", price: "₹180", detail: "Slow-steeped for a smooth, naturally sweet finish.", image: coldBrewImage, pos: "center" },
+  { name: "Butter Croissant", price: "₹140", detail: "Flaky, golden and freshly baked.", image: croissantImage, pos: "center" },
+  { name: "Creamy Pesto Pasta", price: "₹280", detail: "Al dente pasta tossed in creamy basil pesto.", image: pestoPastaImage, pos: "center" },
+  { name: "Berry Cheesecake", price: "₹220", detail: "Silky cheesecake finished with seasonal berries.", image: berryCheesecakeImage, pos: "center" },
 ];
 
-const fullMenu: Record<MenuCategory, { name: string; price: string; detail: string; veg?: boolean; pos: string }[]> = {
+const fullMenu: Record<MenuCategory, { name: string; price: string; detail: string; veg?: boolean; pos: string; image?: string }[]> = {
   Coffee: [
     ...signatureItems.slice(0, 3).map((item) => ({ ...item, veg: true })),
     { name: "Flat White", price: "₹175", detail: "Double ristretto with velvety microfoam.", veg: true, pos: "18% 67%" },
@@ -223,8 +229,8 @@ export function CafeSite() {
             <div className="section-heading light-heading"><div><SectionLabel light>Signature menu</SectionLabel><h2>Made to Be <em>Savoured</em></h2><p>Fresh ingredients. Thoughtfully crafted. Always.</p></div><button className="text-link" onClick={() => setModal("menu")}>View full menu <ArrowRight size={15} /></button></div>
             <div className="signature-grid">
               {signatureItems.map((item, index) => <article className="menu-card" key={item.name} style={{ "--delay": `${index * 70}ms` } as React.CSSProperties}>
-                <div className="menu-card-image"><img src={menuImage} loading="lazy" width={1536} height={1024} style={{ objectPosition: item.pos }} alt={item.name} /></div>
-                <div><h3>{item.name}</h3><p>{item.detail}</p><strong>{item.price}</strong></div>
+                <div className="menu-card-image"><img src={item.image} loading="lazy" width={1024} height={768} style={{ objectPosition: item.pos }} alt={`${item.name} served at Ember and Bean`} /></div>
+                <div className="menu-card-copy"><h3>{item.name}</h3><p>{item.detail}</p><strong>{item.price}</strong></div>
               </article>)}
             </div>
             <div className="mobile-centered"><AppButton variant="light" onClick={() => setModal("menu")}>View full menu <ArrowRight size={15} /></AppButton></div>
@@ -301,7 +307,7 @@ export function CafeSite() {
       {modal === "menu" && <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Full café menu"><div className="menu-modal">
         <div className="modal-head"><div><SectionLabel>Our menu</SectionLabel><h2>Made for <em>every mood.</em></h2></div><button className="icon-button" onClick={() => setModal(null)} aria-label="Close menu"><X /></button></div>
         <div className="category-tabs" role="tablist">{(Object.keys(fullMenu) as MenuCategory[]).map((cat) => <button key={cat} role="tab" aria-selected={category === cat} onClick={() => setCategory(cat)}>{cat}</button>)}</div>
-        <div className="full-menu-grid">{currentMenu.map((item) => <article key={item.name}><img src={menuImage} alt={item.name} style={{ objectPosition: item.pos }} /><div><span className="item-heading"><h3>{item.name}</h3><strong>{item.price}</strong></span><p>{item.detail}</p>{item.veg && <small><i /> Vegetarian</small>}</div></article>)}</div>
+        <div className="full-menu-grid">{currentMenu.map((item) => <article key={item.name}><img src={item.image ?? menuImage} loading="lazy" width={1024} height={768} alt={item.name} style={{ objectPosition: item.pos }} /><div><span className="item-heading"><h3>{item.name}</h3><strong>{item.price}</strong></span><p>{item.detail}</p>{item.veg && <small><i /> Vegetarian</small>}</div></article>)}</div>
         <p className="menu-footnote">Please speak with our team about allergies or dietary requirements.</p>
       </div></div>}
 
