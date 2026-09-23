@@ -250,7 +250,7 @@ export function CafeSite() {
 
         <section id="gallery" className="gallery-section section-pad">
           <div className="section-shell">
-            <div className="gallery-heading" data-reveal><div><SectionLabel>A glimpse into our world</SectionLabel><h2>Moments, flavours and little details<br />that make Ember &amp; Bean special.</h2></div><AppButton variant="outline" onClick={() => openGallery()}>View gallery <ArrowRight size={15} /></AppButton></div>
+            <div className="gallery-heading" data-reveal><div><SectionLabel>A glimpse into our world</SectionLabel><h2>Moments, flavours and little details that make Ember &amp; Bean special.</h2></div><AppButton variant="outline" onClick={() => openGallery()}>View gallery <ArrowRight size={15} /></AppButton></div>
             <div className="gallery-grid">
               {gallery.map((image, index) => <button key={`${image.alt}-${index}`} className={`gallery-tile tile-${index + 1}`} onClick={() => openGallery(index)} aria-label={`Open image: ${image.alt}`}><img src={image.src} alt={image.alt} loading="lazy" style={{ objectPosition: image.pos }} /><span><ArrowRight /></span></button>)}
             </div>
