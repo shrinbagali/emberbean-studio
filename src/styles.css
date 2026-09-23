@@ -236,6 +236,7 @@ h2 { margin: 0; font-size: clamp(2.7rem,4.8vw,5.8rem); line-height: 1.02; }
 .full-menu-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
 .full-menu-grid article { min-width: 0; display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 17px; align-items: center; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
 .full-menu-grid img { width: 100px; height: 90px; object-fit: cover; border-radius: 4px; }
+.full-menu-grid article.no-photo { grid-template-columns: minmax(0,1fr); padding: 16px 18px; }
 .item-heading { display: flex; justify-content: space-between; gap: 12px; }.item-heading h3 { margin: 0; font-family: var(--font-display); font-size: 16px; font-weight: 500; }.item-heading strong { color: var(--accent); font-size: 11px; white-space: nowrap; }
 .full-menu-grid p { margin: 7px 0; color: var(--muted-foreground); font-size: 9px; line-height: 1.5; }.full-menu-grid small { display: flex; align-items: center; gap: 5px; color: var(--accent); font-size: 7px; text-transform: uppercase; letter-spacing: .08em; }.full-menu-grid i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .menu-footnote { margin: 22px 0 0; color: var(--muted-foreground); font-size: 8px; text-align: center; }
