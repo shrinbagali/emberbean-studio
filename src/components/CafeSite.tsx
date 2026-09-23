@@ -69,15 +69,15 @@ const fullMenu: Record<MenuCategory, { name: string; price: string; detail: stri
   "All-Day Bites": [
     { name: "Avocado Sourdough", price: "₹260", detail: "Smashed avocado, feta, seeds and chilli oil.", veg: true, pos: "82% 39%" },
     { name: "Truffle Mushroom Toast", price: "₹280", detail: "Forest mushrooms, parmesan and soft herbs.", veg: true, pos: "51% 42%" },
-    { name: "Butter Croissant", price: "₹140", detail: "Flaky, golden and freshly baked.", veg: true, pos: "51% 43%" },
+    { name: "Butter Croissant", price: "₹140", detail: "Flaky, golden and freshly baked.", veg: true, pos: "center", image: croissantImage },
   ],
   "Pasta & Mains": [
-    { name: "Creamy Pesto Pasta", price: "₹280", detail: "Al dente pasta tossed in creamy basil pesto.", veg: true, pos: "84% 32%" },
+    { name: "Creamy Pesto Pasta", price: "₹280", detail: "Al dente pasta tossed in creamy basil pesto.", veg: true, pos: "center", image: pestoPastaImage },
     { name: "Roasted Tomato Penne", price: "₹270", detail: "Slow-roasted tomato, garlic and basil.", veg: true, pos: "80% 37%" },
     { name: "Herb Chicken Bowl", price: "₹320", detail: "Grilled chicken, seasonal greens and herbed rice.", pos: "78% 41%" },
   ],
   Desserts: [
-    { name: "Berry Cheesecake", price: "₹220", detail: "Silky cheesecake finished with seasonal berries.", veg: true, pos: "72% 72%" },
+    { name: "Berry Cheesecake", price: "₹220", detail: "Silky cheesecake finished with seasonal berries.", veg: true, pos: "center", image: berryCheesecakeImage },
     { name: "Tiramisu", price: "₹230", detail: "Espresso-soaked sponge and mascarpone cream.", veg: true, pos: "69% 70%" },
     { name: "Dark Chocolate Tart", price: "₹210", detail: "Bittersweet chocolate in a crisp cocoa shell.", veg: true, pos: "76% 66%" },
   ],
@@ -250,7 +250,7 @@ export function CafeSite() {
 
         <section id="gallery" className="gallery-section section-pad">
           <div className="section-shell">
-            <div className="gallery-heading" data-reveal><div><SectionLabel>A glimpse into our world</SectionLabel><h2>Moments, flavours and little details<br />that make Ember &amp; Bean special.</h2></div><AppButton variant="outline" onClick={() => openGallery()}>View gallery <ArrowRight size={15} /></AppButton></div>
+            <div className="gallery-heading" data-reveal><div><SectionLabel>A glimpse into our world</SectionLabel><h2>Moments, flavours and little details that make Ember &amp; Bean special.</h2></div><AppButton variant="outline" onClick={() => openGallery()}>View gallery <ArrowRight size={15} /></AppButton></div>
             <div className="gallery-grid">
               {gallery.map((image, index) => <button key={`${image.alt}-${index}`} className={`gallery-tile tile-${index + 1}`} onClick={() => openGallery(index)} aria-label={`Open image: ${image.alt}`}><img src={image.src} alt={image.alt} loading="lazy" style={{ objectPosition: image.pos }} /><span><ArrowRight /></span></button>)}
             </div>
@@ -307,7 +307,7 @@ export function CafeSite() {
       {modal === "menu" && <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Full café menu"><div className="menu-modal">
         <div className="modal-head"><div><SectionLabel>Our menu</SectionLabel><h2>Made for <em>every mood.</em></h2></div><button className="icon-button" onClick={() => setModal(null)} aria-label="Close menu"><X /></button></div>
         <div className="category-tabs" role="tablist">{(Object.keys(fullMenu) as MenuCategory[]).map((cat) => <button key={cat} role="tab" aria-selected={category === cat} onClick={() => setCategory(cat)}>{cat}</button>)}</div>
-        <div className="full-menu-grid">{currentMenu.map((item) => <article key={item.name}><img src={item.image ?? menuImage} loading="lazy" width={1024} height={768} alt={item.name} style={{ objectPosition: item.pos }} /><div><span className="item-heading"><h3>{item.name}</h3><strong>{item.price}</strong></span><p>{item.detail}</p>{item.veg && <small><i /> Vegetarian</small>}</div></article>)}</div>
+        <div className="full-menu-grid">{currentMenu.map((item) => <article key={item.name} className={item.image ? "" : "no-photo"}>{item.image && <img src={item.image} loading="lazy" width={1024} height={768} alt={item.name} style={{ objectPosition: item.pos }} />}<div><span className="item-heading"><h3>{item.name}</h3><strong>{item.price}</strong></span><p>{item.detail}</p>{item.veg && <small><i /> Vegetarian</small>}</div></article>)}</div>
         <p className="menu-footnote">Please speak with our team about allergies or dietary requirements.</p>
       </div></div>}
 
